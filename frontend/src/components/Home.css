@@ -1,0 +1,108 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, rgba(13,13,38,0.95) 0%, rgba(26,26,64,0.95) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 0 30px rgba(0,255,157,0.1);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+}
+
+.footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00ff9d, #00b8d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+}
+
+.hero-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease !important;
+    background: linear-gradient(90deg, #3a1f9b 0%, #21b1ef 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.hero-button:hover {
+    transform: scale(1.05);
+}
+
+.feature-card {
+    background: rgba(26, 26, 64, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 157, 0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,255,157,0.2) !important;
+    border-color: rgba(0, 255, 157, 0.3) !important;
+}
+
+@media (max-width: 600px) {
+    .hero-section {
+        padding: 50px 20px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* New Particle Animation */
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(0,255,157,0.8) 0%, transparent 70%);
+    animation: particleFloat 4s infinite ease-in-out;
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 10px rgba(0,255,157,0.3); }
+    100% { text-shadow: 0 0 20px rgba(0,255,157,0.7); }
+}
