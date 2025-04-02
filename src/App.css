@@ -1,0 +1,70 @@
+.App {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    width: 100%; /* Light background for better contrast */
+}
+
+h1 {
+    color: #faf6f6;
+}
+
+h2 {
+    color: #f5f1f1;
+}
+
+button {
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for better touch targets */
+}
+
+button:hover {
+    background-color: #811124; /* Darker shade for hover */
+    color: white; /* Change text color on hover */
+}
+
+input {
+    border-radius: 5px; /* Rounded corners for input fields */
+    padding: 10px; /* Padding for input fields */
+    border: 1px solid #ccc; /* Light border */
+}
+
+input:focus {
+    border-color: #0056b3; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.alert {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+}
+
+.alert-error {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+}
+
+@media (max-width: 600px) {
+    .App {
+        padding: 10px;
+    }
+}
+
+.hero-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+    transform: scale(1.05);
+    background-color: #c71120be; /* Change background color on hover */
+}
