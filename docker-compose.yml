@@ -1,0 +1,76 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm start"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
+      - REACT_APP_MAPBOX_TOKEN=${REACT_APP_MAPBOX_TOKEN}
+      - REACT_APP_MAPBOX_STYLE=mapbox://styles/mapbox/dark-v10
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=0
+    networks:
+      - app-network
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    command: sh -c "pip install --no-cache-dir -r requirements.txt && python wait-for-mongo.py && python app.py"
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - EMAIL_USER=${EMAIL_USER}
+      - USE_MOCK_API=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      mongo:
+        condition: service_started
+    networks:
+      - app-network
+    env_file:
+      - .env
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=admin
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')", "mongodb://admin:secret@localhost:27017/admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    networks:
+      - app-network
+    command: ["--auth"]
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
